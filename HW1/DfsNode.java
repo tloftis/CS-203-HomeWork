@@ -39,7 +39,7 @@ public class DfsNode
    }
    
    public boolean wasVisited(){
-      return visited;
+      return this.visited;
    }
    
    public void visit(){

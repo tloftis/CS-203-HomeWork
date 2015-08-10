@@ -7,32 +7,47 @@ public class main
       DfsNode DfsNodeB = new DfsNode("b");
       DfsNode DfsNodeC = new DfsNode("c");
       DfsNode DfsNodeD = new DfsNode("d");
+      DfsNode DfsNodeE = new DfsNode("e");
+      DfsNode DfsNodeF = new DfsNode("f");
+      DfsNode DfsNodeG = new DfsNode("g");
+      DfsNode DfsNodeH = new DfsNode("h"); 
+      DfsNode DfsNodeI = new DfsNode("i");
       
+      DfsGraph graph = new DfsGraph(DfsNodeA);
       
-		System.out.println(DfsNodeA.getId());
-		System.out.println(DfsNodeB.getId());
-		System.out.println(DfsNodeC.getId());
-		System.out.println(DfsNodeD.getId());   
+      graph.connectNodes(DfsNodeA, DfsNodeB);
+      graph.connectNodes(DfsNodeB, DfsNodeD);
+      graph.connectNodes(DfsNodeB, DfsNodeE);
+      graph.connectNodes(DfsNodeD, DfsNodeE);
+      graph.connectNodes(DfsNodeD, DfsNodeA);
+      graph.connectNodes(DfsNodeE, DfsNodeG);
+      graph.connectNodes(DfsNodeG, DfsNodeF);
+      graph.connectNodes(DfsNodeF, DfsNodeD);
+      graph.connectNodes(DfsNodeF, DfsNodeA);
+      graph.connectNodes(DfsNodeF, DfsNodeH);
+      graph.connectNodes(DfsNodeH, DfsNodeA);
+      graph.connectNodes(DfsNodeG, DfsNodeI);
       
-      System.out.println("Lists");   
-      System.out.println("b".compareTo("a")<0);
-      System.out.println("a".compareTo("b")<0);
-      System.out.println("b".compareTo("b")<0);
-
-      DfsNodeA.connectNode(DfsNodeC);   
-      DfsNodeA.connectNode(DfsNodeB);   
-      DfsNodeA.connectNode(DfsNodeD);  
+      DfsNode[] nodesInGraph = graph.getNodesInGraph();
       
-      DfsNode[] listA = DfsNodeA.getOrderedNodes();
-      DfsNode[] listB = DfsNodeB.getOrderedNodes();
+      System.out.println(graph.countCycles(DfsNodeA));
       
-      for (int itter = 0; itter < listA.length; itter++) {
-         System.out.println(listA[itter].getId());
+      System.out.println(graph.listCycles(DfsNodeA));
+      
+      for (int itterOut = 0; itterOut < nodesInGraph.length; itterOut++) {
+         DfsNode[] currentNodeList = nodesInGraph[itterOut].getOrderedNodes();
+         String linked = nodesInGraph[itterOut].getId();
+         
+         for (int itter = 0; itter < currentNodeList.length; itter++) {
+            linked += " - " + currentNodeList[itter].getId();
+         }
+         
+         System.out.println(linked);
       }
       
-      for (int itter = 0; itter < listB.length; itter++) {
-         System.out.println(listB[itter].getId());
-      }
+      //for (int itter = 0; itter < listB.length; itter++) {
+      //    System.out.println(listB[itter].getId());
+      //}
 	}
 }
 
