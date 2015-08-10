@@ -1,0 +1,82 @@
+import java.util.*;
+
+public class DfsNode
+{
+   private String id;
+   private DfsNode[] connectedNodes= new DfsNode[0];
+   private boolean visited = false;
+   
+   public DfsNode(String newId){
+      this.id = newId;
+   }
+
+   public void connectNode(DfsNode newNode){
+      if(!isNodeConnected(newNode.getId())){
+         this.addNode(newNode);
+         //newNode.addNode(this);
+      }else{
+         throw new IllegalArgumentException("new node already connected!");      
+      }
+   }
+   
+   public boolean isNodeConnected(String nodeId){
+      for (int itter = 0; itter < connectedNodes.length; ++itter){
+         if(connectedNodes[itter].getId() == nodeId){
+            return true;
+         }
+      }
+      
+      return false;
+   }
+   
+   public String getId(){
+      return this.id;
+   }   
+   
+   public DfsNode[] getOrderedNodes(){
+      this.sortNodesAlpha();
+      return this.connectedNodes;
+   }
+   
+   public boolean wasVisited(){
+      return visited;
+   }
+   
+   public void visit(){
+      this.visited = true;
+   }
+   
+   public void resetVisit(){
+      this.visited = false;
+   }
+   
+   private void addNode(DfsNode newNode){
+      int newLength = this.connectedNodes.length + 1;
+      DfsNode[] tempDfsNode= new DfsNode[newLength];
+
+      for (int itter = 0; itter < (newLength - 1); itter++) {
+         tempDfsNode[itter] = this.connectedNodes[itter];
+      }
+      
+      tempDfsNode[newLength - 1] = newNode;
+      
+      this.connectedNodes = tempDfsNode;
+   }
+   
+   private void sortNodesAlpha(){
+      DfsNode tempDfsNode; 
+      int len = connectedNodes.length;
+      
+      for (int outItter = 0; outItter < len; outItter++) {
+         for (int itter = (outItter + 1); itter < len; itter++) {
+            if(connectedNodes[itter].getId().compareTo(connectedNodes[outItter].getId())<0){
+               tempDfsNode = connectedNodes[outItter];
+               connectedNodes[outItter] = connectedNodes[itter]; 
+               connectedNodes[itter] = tempDfsNode;
+            }
+         }
+
+      }
+   }
+}
+
