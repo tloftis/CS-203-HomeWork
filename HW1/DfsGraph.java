@@ -17,31 +17,34 @@ public class DfsGraph{
    private int cycleCountTwo = 0;//used to count cycles while counting cycles
    
    /***************************************************************/
-   /* Method: */
-   /* Purpose: */
+   /* Method: DfsGraph                                            */
+   /* Purpose: Create a graph with just one node                  */
    /* Parameters:                                                 */
-   /* : */
-   /* Returns: : */
+   /* DfsNode startNode: single node that would be in the graph   */
+   /* Returns: DfsGraph: Returns a graph with one node            */
+   /***************************************************************/
    public DfsGraph(DfsNode startNode){
       nodeArray[0] = startNode;
    }
 
    /***************************************************************/
-   /* Method: */
-   /* Purpose: */
+   /* Method: DfsGraph                                            */
+   /* Purpose: Create a graph from an array of nodes              */
    /* Parameters:                                                 */
-   /* : */
-   /* Returns: : */
+   /* DfsNode[] newNodeArray: Array of nodes to add to graph      */
+   /* Returns: DfsGraph: Returns a graph with all nodes in array  */
+   /***************************************************************/
    public DfsGraph(DfsNode[] newNodeArray){
       this.nodeArray = newNodeArray;
    }
    
    /***************************************************************/
-   /* Method: */
-   /* Purpose: */
+   /* Method: setContainedNodes                                   */
+   /* Purpose: Change out all the nodes in the graph              */
    /* Parameters:                                                 */
-   /* : */
-   /* Returns: : */
+   /* DfsNode[] newList: Node array to change out the nodes with  */
+   /* Returns: void:  just changes out the nodes in the graph     */
+   /***************************************************************/
    public void setContainedNodes(DfsNode[] newList){
       nodeArray = newList;
    }
@@ -52,6 +55,7 @@ public class DfsGraph{
    /* Parameters:                                                 */
    /* : */
    /* Returns: : */
+   /***************************************************************/
    public DfsNode[] getNodesInGraph(){
       return nodeArray;
    }
@@ -62,6 +66,7 @@ public class DfsGraph{
    /* Parameters:                                                 */
    /* : */
    /* Returns: : */
+   /***************************************************************/
    public boolean addNewNode(DfsNode newNode){
       if(!nodeExists(newNode.getId())){
          this.addNode(newNode);
@@ -78,9 +83,10 @@ public class DfsGraph{
    /* Parameters:                                                 */
    /* : */
    /* Returns: : */
+   /***************************************************************/
    public boolean nodeExists(String nodeId){
       for (int itter = 0; itter < nodeArray.length; ++itter){
-         if(nodeArray[itter].getId() == nodeId){
+         if(nodeArray[itter].getId().equals(nodeId)){
             return true;
          }
       }
@@ -94,6 +100,7 @@ public class DfsGraph{
    /* Parameters:                                                 */
    /* : */
    /* Returns: : */
+   /***************************************************************/
    public void connectNodes(DfsNode node1, DfsNode node2){
       if(!nodeExists(node1.getId())){
          this.addNode(node1);
@@ -112,9 +119,10 @@ public class DfsGraph{
    /* Parameters:                                                 */
    /* : */
    /* Returns: : */
+   /***************************************************************/
    public DfsNode getNodeById(String nodeId){
       for (int itter = 0; itter < nodeArray.length; ++itter){
-         if(nodeArray[itter].getId() == nodeId){
+         if(nodeArray[itter].getId().equals(nodeId)){
             return nodeArray[itter];
          }
       }
@@ -128,6 +136,7 @@ public class DfsGraph{
    /* Parameters:                                                 */
    /* : */
    /* Returns: : */
+   /***************************************************************/
    public int countCyclesSelect(DfsNode currentNode){
       cycleCount = 0;
       
@@ -144,6 +153,7 @@ public class DfsGraph{
    /* Parameters:                                                 */
    /* : */
    /* Returns: : */
+   /***************************************************************/
    public int countCycles(){
       DfsNode currentNode = this.getSmallestNode();
       cycleCount = 0;
@@ -161,6 +171,7 @@ public class DfsGraph{
    /* Parameters:                                                 */
    /* : */
    /* Returns: : */
+   /***************************************************************/
    private void countCyclesItter(DfsNode currentNode, DfsNode previousNode, boolean listCycle){
       if(!this.nodeExists(currentNode.getId())){ return; }
       
@@ -171,7 +182,7 @@ public class DfsGraph{
          if(!connectedNodes[itter].wasVisited()){
             this.countCyclesItter(connectedNodes[itter], currentNode, listCycle);
          }else{
-            if(connectedNodes[itter].getId() != previousNode.getId()){
+            if(!connectedNodes[itter].getId().equals(previousNode.getId())){
                cycleCount++;
                
                if(listCycle){
@@ -188,6 +199,7 @@ public class DfsGraph{
    /* Parameters:                                                 */
    /* : */
    /* Returns: : */
+   /***************************************************************/
    public int countCyclesTwo(){
       DfsNode currentNode = this.getSmallestNode();
       cycleCountTwo = 0;
@@ -205,6 +217,7 @@ public class DfsGraph{
    /* Parameters:                                                 */
    /* : */
    /* Returns: : */
+   /***************************************************************/
    private void countCyclesItterTwo(DfsNode currentNode, DfsNode previousNode, boolean listCycle){
       if(!this.nodeExists(currentNode.getId())){ return; }
       
@@ -215,7 +228,7 @@ public class DfsGraph{
          if(!connectedNodes[itter].wasVisitedTwo()){
             this.countCyclesItterTwo(connectedNodes[itter], currentNode, listCycle);
          }else{
-            if(connectedNodes[itter].getId() != previousNode.getId()){
+            if(!connectedNodes[itter].getId().equals(previousNode.getId())){
                if(!listCycle){
                   cycleCountTwo++;
                }else{
@@ -232,6 +245,7 @@ public class DfsGraph{
    /* Parameters:                                                 */
    /* : */
    /* Returns: : */
+   /***************************************************************/
    public ArrayList<DfsNode[]> listCycles(){
       cycleCount = 0;
       DfsNode currentNode = this.getSmallestNode();
@@ -254,14 +268,15 @@ public class DfsGraph{
    /* Parameters:                                                 */
    /* : */
    /* Returns: : */
+   /***************************************************************/
    private ArrayList<DfsNode> nodeChainArray = new ArrayList<>();//used only by this function
    private void listCyclesItter(DfsNode currentNode, DfsNode previousNode, DfsNode startNode, DfsNode finalNode){
       DfsNode[] connectedNodes = currentNode.getOrderedNodes();
       nodeChainArray.add(currentNode);
       
       for (int itter = 0; itter < connectedNodes.length; itter++){
-         if(currentNode.getId() != startNode.getId()){
-            if(connectedNodes[itter].getId() == finalNode.getId()){
+         if(!currentNode.getId().equals(startNode.getId())){
+            if(connectedNodes[itter].getId().equals(finalNode.getId())){
                if(!this.isNodeInChain(finalNode, nodeChainArray)){
                   nodeChainArray.add(finalNode);
                   
@@ -287,11 +302,12 @@ public class DfsGraph{
    /* Parameters:                                                 */
    /* : */
    /* Returns: : */
+   /***************************************************************/
    public boolean isConnected(DfsNode base, DfsNode possibleConnection){
       DfsNode[] connectedList = base.getOrderedNodes();
 
       for (int itter = 0; itter < connectedList.length; itter++) {
-         if(connectedList[itter].getId() == possibleConnection.getId()){
+         if(connectedList[itter].getId().equals(possibleConnection.getId())){
             return true;
          }
       }
@@ -305,11 +321,12 @@ public class DfsGraph{
    /* Parameters:                                                 */
    /* : */
    /* Returns: : */
+   /***************************************************************/
    private boolean isNodeInChain(DfsNode checkNode, ArrayList<DfsNode> nodeChain){
       for (int itter = 0; itter < nodeChain.size(); itter++){
          DfsNode tempNode = nodeChain.get(itter);
          
-         if(tempNode.getId() == checkNode.getId()){
+         if(tempNode.getId().equals(checkNode.getId())){
             return true;
          }         
       }
@@ -323,6 +340,7 @@ public class DfsGraph{
    /* Parameters:                                                 */
    /* : */
    /* Returns: : */
+   /***************************************************************/
    private boolean areDfsArraysEqual(DfsNode[] dfsArrayOne, DfsNode[] dfsArrayTwo){
       if(dfsArrayOne.length != dfsArrayTwo.length){
          return false;
@@ -340,7 +358,7 @@ public class DfsGraph{
       this.sortNodesAlpha(dfsArrayTwoClone);
       
       for (int itter = 0; itter < dfsArrayOneClone.length; itter++){         
-         if(dfsArrayOneClone[itter].getId() != dfsArrayTwoClone[itter].getId()){
+         if(!dfsArrayOneClone[itter].getId().equals(dfsArrayTwoClone[itter].getId())){
             return false;
          }         
       }
@@ -354,6 +372,7 @@ public class DfsGraph{
    /* Parameters:                                                 */
    /* : */
    /* Returns: : */
+   /***************************************************************/
    private void addNode(DfsNode newNode){
       int newLength = this.nodeArray.length + 1;
       DfsNode[] tempDfsNode = new DfsNode[newLength];
@@ -378,6 +397,7 @@ public class DfsGraph{
    /* Parameters:                                                 */
    /* : */
    /* Returns: : */
+   /***************************************************************/
    private void unvisitNodes(){
       for (int itter = 0; itter < nodeArray.length; itter++) {
          nodeArray[itter].resetVisit();
@@ -390,6 +410,7 @@ public class DfsGraph{
    /* Parameters:                                                 */
    /* : */
    /* Returns: : */
+   /***************************************************************/
    private void unvisitNodesTwo(){
       for (int itter = 0; itter < nodeArray.length; itter++) {
          nodeArray[itter].resetVisitTwo();
@@ -402,6 +423,7 @@ public class DfsGraph{
    /* Parameters:                                                 */
    /* : */
    /* Returns: : */
+   /***************************************************************/
    private void addToChainNoDup(DfsNode[] tempArray){
       DfsGraph tempGraph = new DfsGraph(tempArray[0]);
       tempGraph.setContainedNodes(tempArray);
@@ -425,6 +447,7 @@ public class DfsGraph{
    /* Parameters:                                                 */
    /* : */
    /* Returns: : */
+   /***************************************************************/
    private DfsNode getSmallestNode(){
       DfsNode minNode = nodeArray[0];
       
@@ -436,13 +459,14 @@ public class DfsGraph{
       
       return minNode;
    }
-   
+
    /***************************************************************/
-   /* Method: */
-   /* Purpose: */
+   /* Method: sortNodesAlpha                                      */
+   /* Purpose: Sorts an array of nodes alphabetically             */
    /* Parameters:                                                 */
-   /* : */
-   /* Returns: : */
+   /* DfsNode[] arrayOfNodes: node array to sort                  */
+   /* Returns: DfsNode[]: the array sorted, possibly not needed   */
+   /***************************************************************/
    private DfsNode[] sortNodesAlpha(DfsNode[] arrayOfNodes){
       DfsNode tempDfsNode; 
       int len = arrayOfNodes.length;
@@ -467,6 +491,7 @@ public class DfsGraph{
    /* Parameters:                                                 */
    /* : */
    /* Returns: : */
+   /***************************************************************/
    private void removeLargestArray(ArrayList<DfsNode[]> dfsArrayList){
       int largestEle = 0;
       for (int itter = 0; itter < dfsArrayList.size(); itter++) {

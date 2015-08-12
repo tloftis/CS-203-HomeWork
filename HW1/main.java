@@ -77,8 +77,9 @@ public class main
             graphCountLine += "} ";
          }
          
+         //Display information about the graphs
          System.out.println(graphCountLine);
-         
+         //Display the information about the cycles, weither or not they ar acyclic.
          if(totalCycles == 0){
             System.out.println("The collection is acyclic.");
          }else{
@@ -109,7 +110,7 @@ public class main
          int nodeCount = Integer.parseInt(Character.toString(line.charAt(0)));
          
          //Create the nodes specified by the first number in the text file
-         for (int itter = 1; itter <= nodeCount; itter++) {
+         for (int itter = 0; itter <= nodeCount; itter++) {
             nodeCollection.addNewNode("" + itter);
          }
          
