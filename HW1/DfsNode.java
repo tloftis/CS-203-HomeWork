@@ -17,10 +17,22 @@ public class DfsNode
    private boolean visited = false;
    private boolean visitedTwo = false;
    
+   /***************************************************************/
+   /* Method: */
+   /* Purpose: */
+   /* Parameters:                                                 */
+   /* : */
+   /* Returns: : */
    public DfsNode(String newId){
       this.id = newId;
    }
 
+   /***************************************************************/
+   /* Method: */
+   /* Purpose: */
+   /* Parameters:                                                 */
+   /* : */
+   /* Returns: : */
    public boolean connectNode(DfsNode newNode){
       if(!isNodeConnected(newNode.getId())){
          this.addNode(newNode);
@@ -30,6 +42,12 @@ public class DfsNode
       return false;
    }
    
+   /***************************************************************/
+   /* Method: */
+   /* Purpose: */
+   /* Parameters:                                                 */
+   /* : */
+   /* Returns: : */
    public boolean isNodeConnected(String nodeId){
       for (int itter = 0; itter < connectedNodes.length; ++itter){
          if(connectedNodes[itter].getId() == nodeId){
@@ -40,39 +58,93 @@ public class DfsNode
       return false;
    }
    
+   /***************************************************************/
+   /* Method: */
+   /* Purpose: */
+   /* Parameters:                                                 */
+   /* : */
+   /* Returns: : */
    public String getId(){
       return this.id;
    }   
    
+   /***************************************************************/
+   /* Method: */
+   /* Purpose: */
+   /* Parameters:                                                 */
+   /* : */
+   /* Returns: : */
    public DfsNode[] getOrderedNodes(){
       this.sortNodesAlpha();
       return this.connectedNodes;
    }
    
+   /***************************************************************/
+   /* Method: */
+   /* Purpose: */
+   /* Parameters:                                                 */
+   /* : */
+   /* Returns: : */
    public boolean wasVisited(){
       return this.visited;
    }
    
+   /***************************************************************/
+   /* Method: */
+   /* Purpose: */
+   /* Parameters:                                                 */
+   /* : */
+   /* Returns: : */
    public void visit(){
       this.visited = true;
    }
    
+   /***************************************************************/
+   /* Method: */
+   /* Purpose: */
+   /* Parameters:                                                 */
+   /* : */
+   /* Returns: : */
    public void resetVisit(){
       this.visited = false;
    }
    
+   /***************************************************************/
+   /* Method: */
+   /* Purpose: */
+   /* Parameters:                                                 */
+   /* : */
+   /* Returns: : */
    public boolean wasVisitedTwo(){
       return this.visitedTwo;
    }
    
+   /***************************************************************/
+   /* Method: */
+   /* Purpose: */
+   /* Parameters:                                                 */
+   /* : */
+   /* Returns: : */
    public void visitTwo(){
       this.visitedTwo = true;
    }
    
+   /***************************************************************/
+   /* Method: */
+   /* Purpose: */
+   /* Parameters:                                                 */
+   /* : */
+   /* Returns: : */
    public void resetVisitTwo(){
       this.visitedTwo = false;
    }
    
+   /***************************************************************/
+   /* Method: */
+   /* Purpose: */
+   /* Parameters:                                                 */
+   /* : */
+   /* Returns: : */
    private void addNode(DfsNode newNode){
       int newLength = this.connectedNodes.length + 1;
       DfsNode[] tempDfsNode= new DfsNode[newLength];
@@ -86,6 +158,12 @@ public class DfsNode
       this.connectedNodes = tempDfsNode;
    }
    
+   /***************************************************************/
+   /* Method: */
+   /* Purpose: */
+   /* Parameters:                                                 */
+   /* : */
+   /* Returns: : */
    private void sortNodesAlpha(){
       DfsNode tempDfsNode; 
       int len = connectedNodes.length;
