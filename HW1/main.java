@@ -1,29 +1,105 @@
+/***************************************************************/
+/* Timothy Loftis                                              */
+/* Login ID: loft3285                                          */
+/* CS-203, Summer 2015                                         */
+/* Programming Assignment 1                                    */
+/* main class: Uses Dfs Classes to find pares the text of a    */
+/*             Data file and display graph information found   */
+/*             inside of it                                    */
+/***************************************************************/
+
 import java.util.*;
 import java.io.*;
 
-
 public class main
 {
+   /***************************************************************/
+   /* Method: main                                                */
+   /* Purpose: Uses the text parser and Dfs Classes to generate   */
+   /*          Information about the graph formed                 */
+   /* Parameters:                                                 */
+   /* String[] args: Given by terminal, location of data txt file */
+   /* Returns: Void: Output to the console only                   */
+   /***************************************************************/
 	public static void main(String[] args) {
-      ArrayList<String> lines = new ArrayList<String>();
+      if(args.length == 0){
+         System.out.println("No data file specified");
+         return;
+      }
+      
+      //get lines of the text file then parse data from text file into collections
+      ArrayList<String> lines = getTextByLine(args[0]);
+      ArrayList<DfsCollection> nodeCollections = textParser(lines);
+      
+      //Loop through each collection found and output the data
+      for(int mainItter = 0; mainItter < nodeCollections.size(); mainItter++){
+         DfsCollection nodeCollection = nodeCollections.get(mainItter);//current focus collection
+         DfsGraph[] graphsInCollection = nodeCollection.findGraps();//Holds all graphs in collection
+               
+         String graphCountLine = "";//holds output string for all data about graphs
+         String cycleCountLine = "";//holds output string for all data about cycles
+
+         int totalCycles = 0;//will hold total count of cycles in the collection
+               
+         System.out.println("\nCollection " + (mainItter + 1) + ":");
+         
+         graphCountLine = graphsInCollection.length + " Connected Tree(s) Found: ";
+         
+         //go through each graph in the collection to ouput that graph data line
+         for (int itterOut = 0; itterOut < graphsInCollection.length; itterOut++) {
+            DfsNode[] currentNodeList = graphsInCollection[itterOut].getNodesInGraph();
+            //counts up the cycles of all graphs collective cycles
+            totalCycles += graphsInCollection[itterOut].countCycles(); 
+            
+            //builds the data displayed to the user about content of graph
+            graphCountLine += "{" + currentNodeList[0].getId();
+            for (int itter = 1; itter < currentNodeList.length; itter++) {
+               graphCountLine += ", " + currentNodeList[itter].getId();
+            }
+            
+            //holds all cycles in current graph
+            ArrayList<DfsNode[]> nodeChains = graphsInCollection[itterOut].listCycles();
+            
+            //go through each cycle in the graph to generate easly read data
+            for (int itter = 0; itter < nodeChains.size(); itter++){
+               DfsNode[] tempNodes = nodeChains.get(itter);
+               cycleCountLine += "(" + tempNodes[0].getId();
+               
+               for (int itterInner = 1; itterInner < tempNodes.length; itterInner++){
+                  DfsNode tempNode = tempNodes[itterInner];
+                  cycleCountLine += "-" + tempNode.getId();
+               }
+               cycleCountLine += "-" + tempNodes[0].getId();
+               
+               cycleCountLine += ") ";
+            }
+            
+            graphCountLine += "} ";
+         }
+         
+         System.out.println(graphCountLine);
+         
+         if(totalCycles == 0){
+            System.out.println("The collection is acyclic.");
+         }else{
+            System.out.println(totalCycles + " cycle(s) found: " + cycleCountLine);
+         }
+      }
+	}
+   
+   /***************************************************************/
+   /* Method: textParser                                          */
+   /* Purpose: Parses out information line by line formatted      */
+   /*          In a particular manner and makes DfsCollections    */
+   /* Parameters:                                                 */
+   /* ArrayList<String> lines: List of each line from a data text */
+   /*                          file                               */
+   /* Returns: ArrayList<DfsCollection>: DfsCollections made from */
+   /*                   the data found in the lines of data given */
+   /***************************************************************/
+   public static ArrayList<DfsCollection> textParser(ArrayList<String> lines){
       ArrayList<DfsCollection> nodeCollections = new ArrayList<DfsCollection>();
-      
-		try {
-			File file = new File("testData.txt");
-			FileReader fileReader = new FileReader(file);
-         
-			BufferedReader bufferedReader = new BufferedReader(fileReader);
-         
-			String line;
-			while ((line = bufferedReader.readLine()) != null) {
-            lines.add(line);
-			}
-         
-			fileReader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-      
+
       for (int itterOut = 0; itterOut < lines.size(); itterOut++) {
          DfsCollection nodeCollection = new DfsCollection();
          
@@ -55,57 +131,45 @@ public class main
          nodeCollections.add(nodeCollection);
       }
       
-      for(int mainItter = 0; mainItter < nodeCollections.size(); mainItter++){
-         DfsCollection nodeCollection = nodeCollections.get(mainItter);
-         DfsGraph[] graphsInCollection = nodeCollection.findGraps();
-               
-         String graphCountLine = "";
-         String cycleCountLine = "";
-         int totalCycles = 0;
-               
-         System.out.println("");
-         System.out.println("Collection " + (mainItter + 1) + ":");
-         
-         graphCountLine = graphsInCollection.length + " Connected Tree(s) Found: ";
-         
-         for (int itterOut = 0; itterOut < graphsInCollection.length; itterOut++) {
-            DfsNode[] currentNodeList = graphsInCollection[itterOut].getNodesInGraph();
-            totalCycles += graphsInCollection[itterOut].countCycles();
-            
-            graphCountLine += "{" + currentNodeList[0].getId();
-            
-            for (int itter = 1; itter < currentNodeList.length; itter++) {
-               graphCountLine += ", " + currentNodeList[itter].getId();
-            }
-            
-            ArrayList<DfsNode[]> nodeChains = graphsInCollection[itterOut].listCycles();
+      return nodeCollections;
+   }
    
-            for (int itter = 0; itter < nodeChains.size(); itter++){
-               DfsNode[] tempNodes = nodeChains.get(itter);
-               cycleCountLine += "(" + tempNodes[0].getId();
-               
-               for (int itterInner = 1; itterInner < tempNodes.length; itterInner++){
-                  DfsNode tempNode = tempNodes[itterInner];
-                  cycleCountLine += "-" + tempNode.getId();
-               }
-               cycleCountLine += "-" + tempNodes[0].getId();
-               
-               cycleCountLine += ") ";
-            }
-            
-            graphCountLine += "} ";
+   /***************************************************************/
+   /* Method: getTextByLine                                       */
+   /* Purpose: Get all information from a text file line by line  */
+   /* Parameters:                                                 */
+   /* String fileLocation: location of text file                  */
+   /* Returns: ArrayList<String>: array list of each line of text */
+   /*                               in the given file             */
+   /***************************************************************/
+   public static  ArrayList<String> getTextByLine(String fileLocation){
+      ArrayList<String> lines = new ArrayList<String>();
+      
+		try {
+			File file = new File(fileLocation);
+			FileReader fileReader = new FileReader(file);
+         
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+         
+			String line;
+			while ((line = bufferedReader.readLine()) != null) {
+            lines.add(line);
+			}
+         
+			fileReader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+      
+      //lines have to have an odd number of chars or it is invalid
+      for (int itterOut = 0; itterOut < lines.size(); itterOut++) {
+         if(lines.get(itterOut).replaceAll("\\D+","").length()%2 != 1){
+            lines.remove(itterOut);
+            itterOut--;
          }
-         
-         System.out.println(graphCountLine);
-         
-         if(totalCycles == 0){
-            System.out.println("The collection is acyclic.");
-         }else{
-            System.out.println(totalCycles + " cycles found: " + cycleCountLine);
-         }
-         
-         System.out.println("-------------------------------------");
       }
-	}
+      
+      return lines;
+   }
 }
 
