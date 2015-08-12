@@ -9,9 +9,12 @@ public class DfsGraph{
    private int timesCycled = 0;
    private String Chain = "";
    
-   
    public DfsGraph(DfsNode startNode){
       nodeArray[0] = startNode;
+   }
+   
+   public DfsGraph(DfsNode[] newNodeArray){
+      this.nodeArray = newNodeArray;
    }
    
    public void setContainedNodes(DfsNode[] newList){
@@ -98,7 +101,6 @@ public class DfsGraph{
             if(connectedNodes[itter].getId() != previousNode.getId()){
                if(!listCycle){
                   cycleCount++;
-                  System.out.println(currentNode.getId() + " - " + connectedNodes[itter].getId() + ":" + timesCycled);
                }else{
                   cycleCount++;
                   this.listCyclesItter(connectedNodes[itter], connectedNodes[itter], connectedNodes[itter], currentNode);
@@ -140,8 +142,9 @@ public class DfsGraph{
       
    }
    
-   public void listCycles(DfsNode currentNode){
+   public ArrayList<DfsNode[]> listCycles(){
       cycleCount = 0;
+      DfsNode currentNode = this.getSmallestNode();
       
       this.countCyclesItter(currentNode, currentNode, true);
       int listLength = cycleCount/2;
@@ -152,18 +155,7 @@ public class DfsGraph{
          this.removeLargestArray(nodeChainsArray);
       }
       
-      for (int itter = 0; itter < nodeChainsArray.size(); itter++){
-         String temp = "List " + itter;
-         DfsNode[] tempNodes = nodeChainsArray.get(itter);
-         
-         for (int itterInner = 0; itterInner < tempNodes.length; itterInner++){
-            DfsNode tempNode = tempNodes[itterInner];
-            temp += " - " + tempNode.getId();
-         }
-         
-         System.out.println(temp);
-      }
-
+      return nodeChainsArray;
    }
    
    private void listCyclesItter(DfsNode currentNode, DfsNode previousNode, DfsNode startNode, DfsNode finalNode){

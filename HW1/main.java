@@ -3,58 +3,85 @@ import java.util.*;
 public class main
 {
 	public static void main(String[] args) {
-      DfsNode DfsNodeA = new DfsNode("a");
-      DfsNode DfsNodeB = new DfsNode("b");
-      DfsNode DfsNodeC = new DfsNode("c");
-      DfsNode DfsNodeD = new DfsNode("d");
-      DfsNode DfsNodeE = new DfsNode("e");
-      DfsNode DfsNodeF = new DfsNode("f");
-      DfsNode DfsNodeG = new DfsNode("g");
-      DfsNode DfsNodeH = new DfsNode("h"); 
-      DfsNode DfsNodeI = new DfsNode("i");
       
-      DfsGraph graph = new DfsGraph(DfsNodeA);
+      DfsCollection nodeCollection = new DfsCollection();
       
-      graph.connectNodes(DfsNodeA, DfsNodeB);
-      graph.connectNodes(DfsNodeB, DfsNodeD);
-      graph.connectNodes(DfsNodeB, DfsNodeE);
-      graph.connectNodes(DfsNodeD, DfsNodeE);
-      graph.connectNodes(DfsNodeD, DfsNodeA);
-      graph.connectNodes(DfsNodeE, DfsNodeG);
-      graph.connectNodes(DfsNodeG, DfsNodeF);
-      graph.connectNodes(DfsNodeF, DfsNodeD);
-      graph.connectNodes(DfsNodeF, DfsNodeA);
-      graph.connectNodes(DfsNodeF, DfsNodeH);
-      graph.connectNodes(DfsNodeH, DfsNodeA);
-      graph.connectNodes(DfsNodeG, DfsNodeI);
+      DfsNode DfsNodeA = nodeCollection.addNewNode("a");
+      DfsNode DfsNodeB = nodeCollection.addNewNode("b");
+      DfsNode DfsNodeC = nodeCollection.addNewNode("c");
+      DfsNode DfsNodeD = nodeCollection.addNewNode("d");
+      DfsNode DfsNodeE = nodeCollection.addNewNode("e");
+      DfsNode DfsNodeF = nodeCollection.addNewNode("f");
+      DfsNode DfsNodeG = nodeCollection.addNewNode("g");
+      DfsNode DfsNodeH = nodeCollection.addNewNode("h"); 
+      DfsNode DfsNodeI = nodeCollection.addNewNode("i");
       
-      graph.connectNodes(DfsNodeC, DfsNodeD);
-      graph.connectNodes(DfsNodeC, DfsNodeE);
-      graph.connectNodes(DfsNodeC, DfsNodeF);
-      graph.connectNodes(DfsNodeC, DfsNodeG);
+      nodeCollection.connectNodes(DfsNodeA, DfsNodeB);
+      nodeCollection.connectNodes(DfsNodeB, DfsNodeD);
+      //nodeCollection.connectNodes(DfsNodeB, DfsNodeE);
+      //nodeCollection.connectNodes(DfsNodeD, DfsNodeE);
+      nodeCollection.connectNodes(DfsNodeD, DfsNodeA);
+      nodeCollection.connectNodes(DfsNodeE, DfsNodeG);
+      //nodeCollection.connectNodes(DfsNodeG, DfsNodeF);
+      nodeCollection.connectNodes(DfsNodeF, DfsNodeD);
+      nodeCollection.connectNodes(DfsNodeF, DfsNodeA);
+      nodeCollection.connectNodes(DfsNodeF, DfsNodeH);
+      nodeCollection.connectNodes(DfsNodeH, DfsNodeA);
+      //nodeCollection.connectNodes(DfsNodeG, DfsNodeI);
       
-      DfsNode[] nodesInGraph = graph.getNodesInGraph();
+      //nodeCollection.connectNodes(DfsNodeC, DfsNodeD);
+      nodeCollection.connectNodes(DfsNodeC, DfsNodeE);
+      //nodeCollection.connectNodes(DfsNodeC, DfsNodeF);
+      nodeCollection.connectNodes(DfsNodeC, DfsNodeG);
       
-      System.out.println(graph.countCycles());
-      
+      //DfsNode[] nodesInGraph = graph.getNodesInGraph();
+      DfsGraph[] graphsInCollection = nodeCollection.findGraps();
+            
+      String graphCountLine = "";
+      String cycleCountLine = "";
+      int totalCycles = 0;
+            
       System.out.println("-------------------------------------");
-      graph.listCycles(DfsNodeA);
-      System.out.println("-------------------------------------");
+      System.out.println("Collection 1:");
       
-      for (int itterOut = 0; itterOut < nodesInGraph.length; itterOut++) {
-         DfsNode[] currentNodeList = nodesInGraph[itterOut].getOrderedNodes();
-         String linked = nodesInGraph[itterOut].getId();
+      graphCountLine = graphsInCollection.length + " Connected Tree(s) Found: ";
+      
+      for (int itterOut = 0; itterOut < graphsInCollection.length; itterOut++) {
+         DfsNode[] currentNodeList = graphsInCollection[itterOut].getNodesInGraph();
+         totalCycles += graphsInCollection[itterOut].countCycles();
          
-         for (int itter = 0; itter < currentNodeList.length; itter++) {
-            linked += " - " + currentNodeList[itter].getId();
+         graphCountLine += "{" + currentNodeList[0].getId();
+         
+         for (int itter = 1; itter < currentNodeList.length; itter++) {
+            graphCountLine += ", " + currentNodeList[itter].getId();
          }
          
-         System.out.println(linked);
+         ArrayList<DfsNode[]> nodeChains = graphsInCollection[itterOut].listCycles();
+
+         for (int itter = 0; itter < nodeChains.size(); itter++){
+            DfsNode[] tempNodes = nodeChains.get(itter);
+            cycleCountLine += "(" + tempNodes[0].getId();
+            
+            for (int itterInner = 1; itterInner < tempNodes.length; itterInner++){
+               DfsNode tempNode = tempNodes[itterInner];
+               cycleCountLine += "-" + tempNode.getId();
+            }
+            cycleCountLine += "-" + tempNodes[0].getId();
+            
+            cycleCountLine += ") ";
+         }
+         
+         graphCountLine += "} ";
       }
       
-      //for (int itter = 0; itter < listB.length; itter++) {
-      //    System.out.println(listB[itter].getId());
-      //}
+      System.out.println(graphCountLine);
+      
+      if(totalCycles == 0){
+         System.out.println("The collection is acyclic.");
+      }else{
+         System.out.println(totalCycles + " cycles found: " + cycleCountLine);
+      }
+      System.out.println("-------------------------------------");
 	}
 }
 
