@@ -18,21 +18,23 @@ public class DfsNode
    private boolean visitedTwo = false;
    
    /***************************************************************/
-   /* Method: */
-   /* Purpose: */
+   /* Method: DfsNode                                             */
+   /* Purpose: Creates a node from an any string Id               */
    /* Parameters:                                                 */
-   /* : */
-   /* Returns: : */
+   /* String newId: Id that you want to assign to the node        */
+   /* Returns: DfsNode: node with id specified                    */
+   /***************************************************************/
    public DfsNode(String newId){
       this.id = newId;
    }
 
    /***************************************************************/
-   /* Method: */
-   /* Purpose: */
+   /* Method: connectNode                                         */
+   /* Purpose: to connect node to this node                       */
    /* Parameters:                                                 */
-   /* : */
-   /* Returns: : */
+   /* DfsNode newNode: node to connect to this node               */
+   /* Returns: boolean: wheither or not the connection worked     */
+   /***************************************************************/
    public boolean connectNode(DfsNode newNode){
       if(!isNodeConnected(newNode.getId())){
          this.addNode(newNode);
@@ -43,14 +45,15 @@ public class DfsNode
    }
    
    /***************************************************************/
-   /* Method: */
-   /* Purpose: */
+   /* Method: isNodeConnected                                     */
+   /* Purpose: wheither or not the node is connected to this node */
    /* Parameters:                                                 */
-   /* : */
-   /* Returns: : */
+   /* String nodeId: id of the node to connect to                 */
+   /* Returns: boolean: wheither or not the node is connected     */
+   /***************************************************************/
    public boolean isNodeConnected(String nodeId){
       for (int itter = 0; itter < connectedNodes.length; ++itter){
-         if(connectedNodes[itter].getId() == nodeId){
+         if(connectedNodes[itter].getId().equals(nodeId)){
             return true;
          }
       }
@@ -59,92 +62,93 @@ public class DfsNode
    }
    
    /***************************************************************/
-   /* Method: */
-   /* Purpose: */
+   /* Method: getId                                               */
+   /* Purpose: get the id of this node                            */
    /* Parameters:                                                 */
-   /* : */
-   /* Returns: : */
+   /* Returns: String: the id of this node                        */
+   /***************************************************************/
    public String getId(){
       return this.id;
    }   
    
    /***************************************************************/
-   /* Method: */
-   /* Purpose: */
+   /* Method: getOrderedNodes                                     */
+   /* Purpose: get all of the connected nodes                     */
    /* Parameters:                                                 */
-   /* : */
-   /* Returns: : */
+   /* Returns: DfsNode[]: array of connected nodes                */
+   /***************************************************************/
    public DfsNode[] getOrderedNodes(){
       this.sortNodesAlpha();
       return this.connectedNodes;
    }
    
    /***************************************************************/
-   /* Method: */
-   /* Purpose: */
+   /* Method: wasVisited                                          */
+   /* Purpose: if the node was visited, used for traversial       */
    /* Parameters:                                                 */
-   /* : */
-   /* Returns: : */
+   /* Returns: boolean: whither the node was visited              */
+   /***************************************************************/
    public boolean wasVisited(){
       return this.visited;
    }
    
    /***************************************************************/
-   /* Method: */
-   /* Purpose: */
+   /* Method: visit                                               */
+   /* Purpose: set the node to have been visited                  */
    /* Parameters:                                                 */
-   /* : */
-   /* Returns: : */
+   /* Returns: void: marks node as visited                        */
+   /***************************************************************/
    public void visit(){
       this.visited = true;
    }
    
    /***************************************************************/
-   /* Method: */
-   /* Purpose: */
+   /* Method: resetVisit                                          */
+   /* Purpose: sets the node to not be visited                    */
    /* Parameters:                                                 */
-   /* : */
-   /* Returns: : */
+   /* Returns: void: sets visited to be false                     */
+   /***************************************************************/
    public void resetVisit(){
       this.visited = false;
    }
    
    /***************************************************************/
-   /* Method: */
-   /* Purpose: */
+   /* Method: wasVisitedTwo                                       */
+   /* Purpose: if the node was visited, used for traversial       */
    /* Parameters:                                                 */
-   /* : */
-   /* Returns: : */
+   /* Returns: boolean: whither the node was visited              */
+   /***************************************************************/
    public boolean wasVisitedTwo(){
       return this.visitedTwo;
    }
    
    /***************************************************************/
-   /* Method: */
-   /* Purpose: */
+   /* Method: visitTwo                                            */
+   /* Purpose: set the node to have been visited                  */
    /* Parameters:                                                 */
-   /* : */
-   /* Returns: : */
+   /* Returns: void: marks node as visited                        */
+   /***************************************************************/
    public void visitTwo(){
       this.visitedTwo = true;
    }
    
    /***************************************************************/
-   /* Method: */
-   /* Purpose: */
+   /* Method: resetVisitTwo                                       */
+   /* Purpose: sets the node to not be visited                    */
    /* Parameters:                                                 */
-   /* : */
-   /* Returns: : */
+   /* Returns: void: sets visited to be false                     */
+   /***************************************************************/
    public void resetVisitTwo(){
       this.visitedTwo = false;
    }
-   
+
    /***************************************************************/
-   /* Method: */
-   /* Purpose: */
+   /* Method: addNode                                             */
+   /* Purpose: To add a node to an array of connected nodes       */
    /* Parameters:                                                 */
-   /* : */
-   /* Returns: : */
+   /* DfsNode newNode: Node to add to the node array              */
+   /* Returns: void: Just adds a node to an array                 */
+   /***************************************************************/
    private void addNode(DfsNode newNode){
       int newLength = this.connectedNodes.length + 1;
       DfsNode[] tempDfsNode= new DfsNode[newLength];
@@ -157,13 +161,14 @@ public class DfsNode
       
       this.connectedNodes = tempDfsNode;
    }
-   
+
    /***************************************************************/
-   /* Method: */
-   /* Purpose: */
+   /* Method: sortNodesAlpha                                      */
+   /* Purpose: Sorts an array of connected nodes alphabetically   */
    /* Parameters:                                                 */
-   /* : */
-   /* Returns: : */
+   /* DfsNode[] arrayOfNodes: node array to sort                  */
+   /* Returns: DfsNode[]: the array sorted, possibly not needed   */
+   /***************************************************************/
    private void sortNodesAlpha(){
       DfsNode tempDfsNode; 
       int len = connectedNodes.length;
