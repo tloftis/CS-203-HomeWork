@@ -1,3 +1,13 @@
+/***************************************************************/
+/* Timothy Loftis                                              */
+/* Login ID: loft3285                                          */
+/* CS-203, Summer 2015                                         */
+/* Programming Assignment 1                                    */
+/* DfsGraph class: This class is meant to hold DfsNodes that   */
+/*             all are connected in some manner and is able to */
+/*             count and list cycles contained, if any.        */
+/***************************************************************/
+
 import java.util.*;
 
 public class DfsGraph{

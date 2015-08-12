@@ -8,8 +8,8 @@
 /*             inside of it                                    */
 /***************************************************************/
 
-import java.util.*;
-import java.io.*;
+import java.util.*;//used for mostly ArrayLists
+import java.io.*;//used to read files
 
 public class main
 {
@@ -99,12 +99,21 @@ public class main
    /***************************************************************/
    public static ArrayList<DfsCollection> textParser(ArrayList<String> lines){
       ArrayList<DfsCollection> nodeCollections = new ArrayList<DfsCollection>();
-
+      
+      //Go through line by line of the text file and process the found data
       for (int itterOut = 0; itterOut < lines.size(); itterOut++) {
          DfsCollection nodeCollection = new DfsCollection();
          
          String line = lines.get(itterOut).replaceAll("\\D+","");
-                  
+         
+         int nodeCount = Integer.parseInt(Character.toString(line.charAt(0)));
+         
+         //Create the nodes specified by the first number in the text file
+         for (int itter = 1; itter <= nodeCount; itter++) {
+            nodeCollection.addNewNode("" + itter);
+         }
+         
+         //Go through the line and connect the nodes as listed
          for (int itter = 1; itter < line.length(); itter++) {
             DfsNode node1;
             DfsNode node2;

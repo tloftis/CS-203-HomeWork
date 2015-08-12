@@ -1,3 +1,13 @@
+/***************************************************************/
+/* Timothy Loftis                                              */
+/* Login ID: loft3285                                          */
+/* CS-203, Summer 2015                                         */
+/* Programming Assignment 1                                    */
+/* DfsNode class: This is a single node contained in a graph   */
+/*             It has a unique ID and can be connected to other*/
+/*             nodes.                                          */
+/***************************************************************/
+
 import java.util.*;
 
 public class DfsNode
