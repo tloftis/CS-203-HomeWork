@@ -11,7 +11,7 @@
 import java.util.*;//used for mostly ArrayLists
 import java.io.*;//used to read files
 
-public class main
+public class Prog1
 {
    /***************************************************************/
    /* Method: main                                                */
