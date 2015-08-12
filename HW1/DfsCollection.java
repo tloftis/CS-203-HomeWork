@@ -21,6 +21,16 @@ public class DfsCollection{
          this.addNode(newNodeArray[itter]);
       }
    }
+   
+   public boolean nodeExists(String nodeId){
+      for (int itter = 0; itter < nodeArray.length; ++itter){
+         if(nodeArray[itter].getId().equals(nodeId)){
+            return true;
+         }
+      }
+      
+      return false;
+   }
 
    public DfsNode addNewNode(String nodeId){
       DfsNode newNode = new DfsNode(nodeId);
@@ -88,22 +98,12 @@ public class DfsCollection{
    
    public DfsNode getNodeById(String nodeId){
       for (int itter = 0; itter < nodeArray.length; ++itter){
-         if(nodeArray[itter].getId() == nodeId){
+         if(nodeArray[itter].getId().equals(nodeId)){
             return nodeArray[itter];
          }
       }
       
       return null;
-   }
-   
-   public boolean nodeExists(String nodeId){
-      for (int itter = 0; itter < nodeArray.length; ++itter){
-         if(nodeArray[itter].getId() == nodeId){
-            return true;
-         }
-      }
-      
-      return false;
    }
    
    private void addNode(DfsNode newNode){

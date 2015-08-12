@@ -11,13 +11,13 @@ public class DfsNode
       this.id = newId;
    }
 
-   public void connectNode(DfsNode newNode){
+   public boolean connectNode(DfsNode newNode){
       if(!isNodeConnected(newNode.getId())){
          this.addNode(newNode);
-         //newNode.addNode(this);
-      }else{
-         throw new IllegalArgumentException("new node already connected!");      
+         return true;
       }
+      
+      return false;
    }
    
    public boolean isNodeConnected(String nodeId){
