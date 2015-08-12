@@ -5,6 +5,7 @@ public class DfsNode
    private String id;
    private DfsNode[] connectedNodes= new DfsNode[0];
    private boolean visited = false;
+   private boolean visitedTwo = false;
    
    public DfsNode(String newId){
       this.id = newId;
@@ -48,6 +49,18 @@ public class DfsNode
    
    public void resetVisit(){
       this.visited = false;
+   }
+   
+   public boolean wasVisitedTwo(){
+      return this.visitedTwo;
+   }
+   
+   public void visitTwo(){
+      this.visitedTwo = true;
+   }
+   
+   public void resetVisitTwo(){
+      this.visitedTwo = false;
    }
    
    private void addNode(DfsNode newNode){

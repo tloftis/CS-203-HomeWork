@@ -28,11 +28,18 @@ public class main
       graph.connectNodes(DfsNodeH, DfsNodeA);
       graph.connectNodes(DfsNodeG, DfsNodeI);
       
+      graph.connectNodes(DfsNodeC, DfsNodeD);
+      graph.connectNodes(DfsNodeC, DfsNodeE);
+      graph.connectNodes(DfsNodeC, DfsNodeF);
+      graph.connectNodes(DfsNodeC, DfsNodeG);
+      
       DfsNode[] nodesInGraph = graph.getNodesInGraph();
       
-      System.out.println(graph.countCycles(DfsNodeA));
+      System.out.println(graph.countCycles());
       
-      System.out.println(graph.listCycles(DfsNodeA));
+      System.out.println("-------------------------------------");
+      graph.listCycles(DfsNodeA);
+      System.out.println("-------------------------------------");
       
       for (int itterOut = 0; itterOut < nodesInGraph.length; itterOut++) {
          DfsNode[] currentNodeList = nodesInGraph[itterOut].getOrderedNodes();
