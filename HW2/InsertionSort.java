@@ -12,9 +12,9 @@ public class InsertionSort{
    private int[] sortArray;
    private int length = 0;
    
-   public InsertionSort(int[] intArray, int length){
+   public InsertionSort(int[] intArray){
       this.sortArray = intArray;
-      this.length = length;
+      this.length = intArray.length;
    }
    
    public void doTheAlgorithm(){

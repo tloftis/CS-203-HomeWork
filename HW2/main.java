@@ -21,8 +21,7 @@ public class main{
    /* Returns: Void: Output to the console only                   */
    /***************************************************************/
 	public static void main(String[] args) {
-   
-      int[] sorted = new int[] {1,3,4,6,1,25,7,23};
+      int[] sorted = new int[] {45,23,11,89,77,98,4,28,65,43};
       String sortedStr = "";
       
       for(int i = 0; i < (sorted.length - 1); i++){
@@ -31,11 +30,10 @@ public class main{
       sortedStr += sorted[(sorted.length - 1)];
       System.out.println(sortedStr);
       
-      InsertionSort insert = new InsertionSort(sorted, sorted.length);
+      MergeSort sortAlg = new MergeSort(sorted);
+      sortAlg.doTheAlgorithm();
       
-      insert.doTheAlgorithm();
-      
-      sorted = insert.getArray();
+      sorted = sortAlg.getArray();
       sortedStr = "";
       
       for(int i = 0; i < (sorted.length - 1); i++){
@@ -43,6 +41,5 @@ public class main{
       }  
       sortedStr += sorted[(sorted.length - 1)];
       System.out.println(sortedStr);
-
    }
 }
