@@ -1,0 +1,26 @@
+You can only mindlessly copy and paste, not code. That works until you need to compile, then no matter what you need to think about what you just did.
+
+Quick sort finds a pivit point, a random value that can be from any area of the array and split all elements around it, smaller to the right and larger to the left.
+then same is done for the two halves created up until the elements being at only a count of <2, at this point the array is sorted.
+
+Merge sort breaks an array down into halves until only pairs are left, then it sorts each pair so that the left piece is less than the right. After that it starts re-merging
+the parts back together with the knowledge that the elements are sorted smallest to largest, comparing the first two elements of each to each other and adding the smallest to
+the beginning of a new array, until all elements of each have been compared and added.
+
+Insert Sort a decrease and conqure algorithem, it starts at the first element and shifts it right until it is less than the element to it's right, then it repeats until elements 
+are sorted
+ 
+On what types of data sets would each algorithm perform well (already in
+order, out of order, etc.)? 
+
+Merge sort works best on datasets that are already sorted lowest to highest, and worst on highest to lowest.
+Quick sort works best on datasets that are already sorted lowest to highest, and worst on sets were the lowest/highest numbers align in the middle of the index of the array.
+Insert sort works best on datasets that are already sorted lowest to highest, and worst on highest to lowest.
+
+Are there any other criteria that could be explored? 
+Phycial space needed to store variables, the types of mathematical operations required could matter on limited or precise hardware.
+
+There was no real modification to the heart of the algorithms really needed other that adding counters to determine the swap and comparison amounts required. 
+Quick sort required breaking up for sake of clean code but no re-working was done to it, I found that quick sort was the more annoying one to think through from a concept
+into an algorithm while insert sort was the easiest. Merge was difficult until I re-though how i was holding the temp array and how I would separate up the elements.
+A miss-spelling took me quite some time to notice causing some overflow errors.
