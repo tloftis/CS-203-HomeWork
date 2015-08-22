@@ -1,8 +1,21 @@
+/***************************************************************/
+/* Timothy Loftis                                              */
+/* Login ID: loft3285                                          */
+/* CS-203, Summer 2015                                         */
+/* Programming Assignment 2                                    */
+/* MergeSort class: Uses the merge sort method for an          */
+/*                      int array                              */
+/***************************************************************/
+
+import java.util.*;
+
 public class MergeSort {
      
    private int[] sortArray;
    private int length = 0;
    private int[] tempMergArr;
+   private int swapCount = 0;
+   private int compCount = 0;
    
    /***************************************************************/
    /* Method: MergeSort                                           */
@@ -14,6 +27,23 @@ public class MergeSort {
    public MergeSort(int[] intArray){
       this.sortArray = intArray;
       this.length = intArray.length;
+   }
+   
+   /***************************************************************/
+   /* Method: timeAlg                                             */
+   /* Purpose: times the runtime of the alg                       */
+   /* Parameters:                                                 */
+   /* Returns: long: time in nano seconds to run alg              */
+   /***************************************************************/
+   public long timeAlg(){
+      long startTime = System.nanoTime();
+      
+      this.doTheAlgorithm();
+      
+      long endTime = System.nanoTime();
+      long elapsedTime = endTime - startTime;
+      
+      return elapsedTime;
    }
 
    /***************************************************************/
@@ -33,11 +63,34 @@ public class MergeSort {
    /* Returns: void: sorts the array lowest to highest            */
    /***************************************************************/
    public void doTheAlgorithm() {
+      this.swapCount = 0;
+      this.compCount = 0;
+      
       this.length = this.sortArray.length;
       //acts as the second array to compare with
       this.tempMergArr = new int[length];
         
       split(0, this.length - 1);
+   }
+
+   /***************************************************************/
+   /* Method: getSwapCount                                        */
+   /* Purpose: to get the amount of swaps of last alg run         */
+   /* Parameters:                                                 */
+   /* Returns: int[] : the swap count                             */
+   /***************************************************************/
+   public int getSwapCount(){
+      return this.swapCount;
+   }
+
+   /***************************************************************/
+   /* Method: getCompCount                                        */
+   /* Purpose: to get the amount of comparisons of last alg run   */
+   /* Parameters:                                                 */
+   /* Returns: int[] : the comparision count                      */
+   /***************************************************************/
+   public int getCompCount(){
+      return this.compCount;
    }
 
    /***************************************************************/
@@ -83,7 +136,7 @@ public class MergeSort {
       int highHigh = higherIndex;
       int itterArr = lowerIndex;
         
-      while(lowLow <= lowHigh && highLow <= highHigh){
+      while(lowLow <= lowHigh && highLow <= highHigh){         
          if(tempMergArr[lowLow] <= tempMergArr[highLow]){
             this.sortArray[itterArr] = tempMergArr[lowLow];
             lowLow++;
@@ -92,14 +145,28 @@ public class MergeSort {
             highLow++;
          }  
          
+         swapCount++;
+         compCount++;
+         
          itterArr++;
       }
       
-      while(lowLow <= lowHigh){
+      while(lowLow <= lowHigh){         
          this.sortArray[itterArr] = tempMergArr[lowLow];
          lowLow++;
        
          itterArr++;
       }
+   }
+
+   /***************************************************************/
+   /* Method: setArray                                            */
+   /* Purpose: to get the array                                   */
+   /* Parameters:                                                 */
+   /* int[] newArr: the new array to set the internal focus to    */
+   /* Returns: void: sets a new array as the focus                */
+   /***************************************************************/
+   public void setArray(int[] newArr){
+      this.sortArray = newArr;
    }
 }

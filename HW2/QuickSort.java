@@ -12,6 +12,8 @@ public class QuickSort{
 	 
 	private int sortArray[];
 	private int length;
+   private int swapCount = 0;
+   private int compCount = 0;
    
    /***************************************************************/
    /* Method: QuickSort                                           */
@@ -32,6 +34,9 @@ public class QuickSort{
    /* Returns: void: sorts the array lowest to highest            */
    /***************************************************************/
    public void doTheAlgorithm() {
+      this.swapCount = 0;
+      this.compCount = 0;
+      
 		doQuickSort(0, this.sortArray.length - 1);
 	}
 
@@ -62,24 +67,91 @@ public class QuickSort{
 		int pivot = sortArray[middleIndex];
       
 		while (lowItter <= highItter) {
-			while (sortArray[lowItter] < pivot) 
+			while (sortArray[lowItter] < pivot)
             lowItter++;
          
-			while (sortArray[highItter] > pivot) 
+			while (sortArray[highItter] > pivot)
             highItter--;
          
+         compCount++;
 			if (lowItter <= highItter) {
 				swap(lowItter, highItter);
+            swapCount++;
             
 				lowItter++;
 				highItter--;
 		   }
 		}
       
+      compCount++;
 		if (lowerIndex < higherIndex)
 			doQuickSort(lowerIndex, highItter);
          
+      compCount++;
 		if (lowItter < higherIndex)
 			doQuickSort(lowItter, higherIndex);
+         
 	}
+
+   /***************************************************************/
+   /* Method: swap                                                */
+   /* Purpose: swaps the value of two indexes in the main array   */
+   /* Parameters:                                                 */
+   /* int leftIndex: index to swap with right index               */
+   /* int rightIndex: index to swap with left index               */
+   /* Returns: void: sets a new array as the focus                */
+   /***************************************************************/
+   private void swap(int leftIndex, int rightIndex) {
+		int temp = sortArray[leftIndex];
+		sortArray[leftIndex] = sortArray[rightIndex];
+		sortArray[rightIndex] = temp;
+	}
+
+   /***************************************************************/
+   /* Method: getSwapCount                                        */
+   /* Purpose: to get the amount of swaps of last alg run         */
+   /* Parameters:                                                 */
+   /* Returns: int[] : the swap count                             */
+   /***************************************************************/
+   public int getSwapCount(){
+      return this.swapCount;
+   }
+
+   /***************************************************************/
+   /* Method: getCompCount                                        */
+   /* Purpose: to get the amount of comparisons of last alg run   */
+   /* Parameters:                                                 */
+   /* Returns: int[] : the comparision count                      */
+   /***************************************************************/
+   public int getCompCount(){
+      return this.compCount;
+   }
+   
+   /***************************************************************/
+   /* Method: timeAlg                                             */
+   /* Purpose: times the runtime of the alg                       */
+   /* Parameters:                                                 */
+   /* Returns: long: time in nano seconds to run alg              */
+   /***************************************************************/
+   public long timeAlg(){
+      long startTime = System.nanoTime();
+      
+      this.doTheAlgorithm();
+      
+      long endTime = System.nanoTime();
+      long elapsedTime = endTime - startTime;
+      
+      return elapsedTime;
+   }
+
+   /***************************************************************/
+   /* Method: setArray                                            */
+   /* Purpose: to get the array                                   */
+   /* Parameters:                                                 */
+   /* int[] newArr: the new array to set the internal focus to    */
+   /* Returns: void: sets a new array as the focus                */
+   /***************************************************************/
+   public void setArray(int[] newArr){
+      this.sortArray = newArr;
+   }
 }
