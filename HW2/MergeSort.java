@@ -2,18 +2,36 @@ public class MergeSort {
      
    private int[] sortArray;
    private int length = 0;
-   private int[] array;
    private int[] tempMergArr;
- 
+   
+   /***************************************************************/
+   /* Method: MergeSort                                           */
+   /* Purpose: Sets the array and the array length to be used     */
+   /* Parameters:                                                 */
+   /* int[] intArray: The array to be sorted at some point        */
+   /* Returns: void: just sets the array                          */
+   /***************************************************************/
    public MergeSort(int[] intArray){
       this.sortArray = intArray;
       this.length = intArray.length;
    }
-   
+
+   /***************************************************************/
+   /* Method: getArray                                            */
+   /* Purpose: to get the array                                   */
+   /* Parameters:                                                 */
+   /* Returns: int[] getArray: returns weither arraysorted or not */
+   /***************************************************************/
    public int[] getArray(){
       return this.sortArray;
    }
-     
+
+   /***************************************************************/
+   /* Method: doTheAlgorithm                                      */
+   /* Purpose: To start the sorting of the array                  */
+   /* Parameters:                                                 */
+   /* Returns: void: sorts the array lowest to highest            */
+   /***************************************************************/
    public void doTheAlgorithm() {
       this.length = this.sortArray.length;
       //acts as the second array to compare with
@@ -21,7 +39,16 @@ public class MergeSort {
         
       split(0, this.length - 1);
    }
- 
+
+   /***************************************************************/
+   /* Method: split                                               */
+   /* Purpose: to split an array between the upper and lower bound*/
+   /*          up to groups of two and call the sorting merge     */
+   /* Parameters:                                                 */
+   /* int lowerIndex: the lower bounds of the array to sort       */
+   /* int higherIndex: the upper bounds of the array to sort      */
+   /* Returns: void: sorts the content of the internal array      */
+   /***************************************************************/
    private void split(int lowerIndex, int higherIndex){
       if (lowerIndex < higherIndex) {
          //find middle point
@@ -35,7 +62,16 @@ public class MergeSort {
          merge(lowerIndex, middle, higherIndex);
       }
    }
- 
+
+   /***************************************************************/
+   /* Method: merge                                               */
+   /* Purpose: merges two arrays comparing the left most elements */
+   /* Parameters:                                                 */
+   /* int lowerIndex: the lower bounds of the array to sort       */
+   /* int lowHigh: the middle index of the array                  */
+   /* int higherIndex: the upper bounds of the array to sort      */
+   /* Returns: void: merges two array indexes together            */
+   /***************************************************************/
    private void merge(int lowerIndex, int lowHigh, int higherIndex) {
       for (int itter = lowerIndex; itter <= higherIndex; itter++) {
          tempMergArr[itter] = this.sortArray[itter];

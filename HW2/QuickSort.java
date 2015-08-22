@@ -12,20 +12,47 @@ public class QuickSort{
 	 
 	private int sortArray[];
 	private int length;
-
+   
+   /***************************************************************/
+   /* Method: QuickSort                                           */
+   /* Purpose: Sets the array and the array length to be used     */
+   /* Parameters:                                                 */
+   /* int[] intArray: The array to be sorted at some point        */
+   /* Returns: void: just sets the array                          */
+   /***************************************************************/
    public QuickSort(int[] newArray) {
       this.sortArray = newArray;
 		this.length = newArray.length;
 	}
 
+   /***************************************************************/
+   /* Method: doTheAlgorithm                                      */
+   /* Purpose: To start the sorting of the array                  */
+   /* Parameters:                                                 */
+   /* Returns: void: sorts the array lowest to highest            */
+   /***************************************************************/
    public void doTheAlgorithm() {
 		doQuickSort(0, this.sortArray.length - 1);
 	}
-   
+
+   /***************************************************************/
+   /* Method: getArray                                            */
+   /* Purpose: to get the array                                   */
+   /* Parameters:                                                 */
+   /* Returns: int[] getArray: returns weither arraysorted or not */
+   /***************************************************************/
    public int[] getArray(){
       return this.sortArray;
    }
 
+   /***************************************************************/
+   /* Method: doQuickSort                                         */
+   /* Purpose: the recursive alg for quicksor                     */
+   /* Parameters:                                                 */
+   /* int lowerIndex: the lower bounds of the array to sort       */
+   /* int higherIndex: the upper bounds of the array to sort      */
+   /* Returns: void: sorts the internal array                     */
+   /***************************************************************/
 	private void doQuickSort(int lowerIndex, int higherIndex){
 		int lowItter = lowerIndex;
 		int highItter = higherIndex;
@@ -54,11 +81,5 @@ public class QuickSort{
          
 		if (lowItter < higherIndex)
 			doQuickSort(lowItter, higherIndex);
-	}
-
-	private void swap(int leftIndex, int rightIndex) {
-		int temp = sortArray[leftIndex];
-		sortArray[leftIndex] = sortArray[rightIndex];
-		sortArray[rightIndex] = temp;
 	}
 }

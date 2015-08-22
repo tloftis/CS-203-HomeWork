@@ -3,43 +3,94 @@
 /* Login ID: loft3285                                          */
 /* CS-203, Summer 2015                                         */
 /* Programming Assignment 2                                    */
-/* main class: Uses Dfs Classes to find pares the text of a    */
-/*             Data file and display graph information found   */
-/*             inside of it                                    */
+/* main class: this tests the timing of the diffrent sorting   */
+/*             algs                                            */
 /***************************************************************/
 
-import java.util.*;//used for mostly ArrayLists
-import java.io.*;//used to read files
+import java.util.*;//used for mostly for Random
 
 public class main{
+
    /***************************************************************/
    /* Method: main                                                */
-   /* Purpose: Uses the text parser and Dfs Classes to generate   */
-   /*          Information about the graph formed                 */
+   /* Purpose: this tests the timing of the diffrent sort methods */
    /* Parameters:                                                 */
-   /* String[] args: Given by terminal, location of data txt file */
    /* Returns: Void: Output to the console only                   */
    /***************************************************************/
-	public static void main(String[] args) {
-      int[] sorted = new int[] {45,23,11,89,77,98,4,28,65,43};
-      String sortedStr = "";
+	public static void main() {
+      int[] sortMerge = randomArrIntGen(15, 1, 100);
+      int[] sortQuick = copyArr(sortMerge);
+      int[] sortInsert = copyArr(sortMerge);
       
-      for(int i = 0; i < (sorted.length - 1); i++){
-         sortedStr += sorted[i] + ", ";   
-      }  
-      sortedStr += sorted[(sorted.length - 1)];
-      System.out.println(sortedStr);
+      System.out.println(explodeArray(sortMerge, " - "));
+
+      MergeSort sortAlg = new MergeSort(sortMerge);
       
-      QuickSort sortAlg = new QuickSort(sorted);
+      long startTime = System.nanoTime();
+      
       sortAlg.doTheAlgorithm();
       
-      sorted = sortAlg.getArray();
-      sortedStr = "";
+      long endTime = System.nanoTime();
+      long elapsedTime = endTime - startTime;
       
-      for(int i = 0; i < (sorted.length - 1); i++){
-         sortedStr += sorted[i] + ", ";   
+      System.out.println(explodeArray(sortAlg.getArray(), " - "));
+      System.out.println(elapsedTime);
+   }
+
+   /***************************************************************/
+   /* Method:                                              */
+   /* Purpose: */
+   /* Parameters:                                                 */
+   /* : */
+   /* Returns: : */
+   /***************************************************************/
+   public static String explodeArray(int[] inputArr, String del){
+      String explodeStr = "";
+      
+      for(int itter = 0; itter < inputArr.length; itter++){
+         explodeStr += inputArr[itter] + del;   
       }  
-      sortedStr += sorted[(sorted.length - 1)];
-      System.out.println(sortedStr);
+      
+      explodeStr = explodeStr.substring(0, explodeStr.length()- del.length());;
+      
+      return explodeStr;
+   }
+
+   /***************************************************************/
+   /* Method:                                              */
+   /* Purpose: */
+   /* Parameters:                                                 */
+   /* : */
+   /* Returns: : */
+   /***************************************************************/
+   public static int[] randomArrIntGen(int len, int minBound, int maxBound){
+      int[] ranArr = new int[len];
+      int ranInt = 0;
+      
+      Random random = new Random();
+      
+      for(int itter = 0; itter < len; itter++){
+         ranInt = random.nextInt(maxBound - minBound) + minBound;
+         ranArr[itter] = ranInt;
+      }
+      
+      return ranArr;
+   }
+
+   /***************************************************************/
+   /* Method:                                              */
+   /* Purpose: */
+   /* Parameters:                                                 */
+   /* : */
+   /* Returns: : */
+   /***************************************************************/
+   public static int[] copyArr(int[] inputArr){
+      int[] cpyArr = new int[inputArr.length];
+      
+      for(int itter = 0; itter < inputArr.length; itter++){
+         cpyArr[itter] = inputArr[itter];
+      }
+      
+      return cpyArr;
    }
 }
