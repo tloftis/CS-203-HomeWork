@@ -30,7 +30,7 @@ public class main{
       sortedStr += sorted[(sorted.length - 1)];
       System.out.println(sortedStr);
       
-      MergeSort sortAlg = new MergeSort(sorted);
+      QuickSort sortAlg = new QuickSort(sorted);
       sortAlg.doTheAlgorithm();
       
       sorted = sortAlg.getArray();

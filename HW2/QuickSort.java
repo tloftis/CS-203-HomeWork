@@ -1,54 +1,64 @@
-public class MyQuickSort {
+/***************************************************************/
+/* Timothy Loftis                                              */
+/* Login ID: loft3285                                          */
+/* CS-203, Summer 2015                                         */
+/* Programming Assignment 2                                    */
+/* QuickSort class: This is a merge sort for an integer array    */
+/***************************************************************/
+
+import java.util.*;
+
+public class QuickSort{
 	 
-	private int array[];
+	private int sortArray[];
 	private int length;
 
-   public void sort(int[] inputArr) {
-		 
-		if (inputArr == null || inputArr.length == 0) {
-			return;
-		}
-		this.array = inputArr;
-		length = inputArr.length;
-		quickSort(0, length - 1);
+   public QuickSort(int[] newArray) {
+      this.sortArray = newArray;
+		this.length = newArray.length;
 	}
 
-	private void quickSort(int lowerIndex, int higherIndex) {
-		 
-		int i = lowerIndex;
-		int j = higherIndex;
-		// calculate pivot number, I am taking pivot as middle index number
-		int pivot = array[lowerIndex+(higherIndex-lowerIndex)/2];
-		// Divide into two arrays
-		while (i <= j) {
-			/**
-			 * In each iteration, we will identify a number from left side which
-			 * is greater then the pivot value, and also we will identify a number
-			 * from right side which is less then the pivot value. Once the search
-			 * is done, then we exchange both numbers.
-			 */
-			while (array[i] < pivot) {
-				i++;
-			}
-			while (array[j] > pivot) {
-				j--;
-			}
-			if (i <= j) {
-				exchangeNumbers(i, j);
-				//move index to next position on both sides
-				i++;
-				j--;
-			}
+   public void doTheAlgorithm() {
+		doQuickSort(0, this.sortArray.length - 1);
+	}
+   
+   public int[] getArray(){
+      return this.sortArray;
+   }
+
+	private void doQuickSort(int lowerIndex, int higherIndex){
+		int lowItter = lowerIndex;
+		int highItter = higherIndex;
+      
+		// use the middle as a pivot numberr
+      int middleIndex = lowerIndex + (higherIndex - lowerIndex)/2;
+		int pivot = sortArray[middleIndex];
+      
+		while (lowItter <= highItter) {
+			while (sortArray[lowItter] < pivot) 
+            lowItter++;
+         
+			while (sortArray[highItter] > pivot) 
+            highItter--;
+         
+			if (lowItter <= highItter) {
+				swap(lowItter, highItter);
+            
+				lowItter++;
+				highItter--;
+		   }
 		}
-		// call quickSort() method recursively
-		if (lowerIndex < j)
-			quickSort(lowerIndex, j);
-		if (i < higherIndex)
-			quickSort(i, higherIndex);
+      
+		if (lowerIndex < higherIndex)
+			doQuickSort(lowerIndex, highItter);
+         
+		if (lowItter < higherIndex)
+			doQuickSort(lowItter, higherIndex);
 	}
 
-	private void exchangeNumbers(int i, int j) {
-		int temp = array[i];
-		array[i] = array[j];
-		array[j] = temp;
+	private void swap(int leftIndex, int rightIndex) {
+		int temp = sortArray[leftIndex];
+		sortArray[leftIndex] = sortArray[rightIndex];
+		sortArray[rightIndex] = temp;
 	}
+}
