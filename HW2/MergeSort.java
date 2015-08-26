@@ -136,7 +136,10 @@ public class MergeSort {
       int highHigh = higherIndex;
       int itterArr = lowerIndex;
         
-      while(lowLow <= lowHigh && highLow <= highHigh){         
+      while(lowLow <= lowHigh && highLow <= highHigh){     
+      
+         compCount++;   
+         swapCount++; 
          if(tempMergArr[lowLow] <= tempMergArr[highLow]){
             this.sortArray[itterArr] = tempMergArr[lowLow];
             lowLow++;
@@ -145,14 +148,13 @@ public class MergeSort {
             highLow++;
          }  
          
-         swapCount++;
-         compCount++;
          
          itterArr++;
       }
       
       while(lowLow <= lowHigh){         
          this.sortArray[itterArr] = tempMergArr[lowLow];
+         swapCount++; 
          lowLow++;
        
          itterArr++;

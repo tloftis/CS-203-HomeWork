@@ -83,7 +83,7 @@ public class main{
             tableData[itter][itterInner] = stdStrLen(tableData[itter][itterInner], cellLen);
          }
          
-         tableRow = explodeArray(tableData[itter], "| ");
+         tableRow = explodeArrayStr(tableData[itter], "| ");
          rowSeperator = "";
          
          for(int itterChar = 0; itterChar < tableRow.length(); itterChar++)
@@ -99,14 +99,34 @@ public class main{
    }
    
    /***************************************************************/
-   /* Method: explodeArray                                        */
+   /* Method: explodeArrayStr                                     */
+   /* Purpose: creats string from all elements in an array        */
+   /* Parameters:                                                 */
+   /* String[] inputArr: the array to turn into an array          */
+   /* String del: the string to put between each element          */
+   /* Returns: String: the string produced from the array         */
+   /***************************************************************/
+   public static String explodeArrayStr(String[] inputArr, String del){
+      String explodeStr = "";
+      
+      for(int itter = 0; itter < inputArr.length; itter++){
+         explodeStr += inputArr[itter] + del;   
+      }  
+      
+      explodeStr = explodeStr.substring(0, explodeStr.length()- del.length());;
+      
+      return explodeStr;
+   }
+   
+   /***************************************************************/
+   /* Method: explodeArrayInt                                     */
    /* Purpose: creats string from all elements in an array        */
    /* Parameters:                                                 */
    /* int[] inputArr: the array to turn into an array             */
    /* String del: the string to put between each element          */
    /* Returns: String: the string produced from the array         */
    /***************************************************************/
-   private static String explodeArray(String[] inputArr, String del){
+   public static String explodeArrayInt(int[] inputArr, String del){
       String explodeStr = "";
       
       for(int itter = 0; itter < inputArr.length; itter++){

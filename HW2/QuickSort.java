@@ -3,7 +3,7 @@
 /* Login ID: loft3285                                          */
 /* CS-203, Summer 2015                                         */
 /* Programming Assignment 2                                    */
-/* QuickSort class: This is a merge sort for an integer array    */
+/* QuickSort class: This is a merge sort for an integer array  */
 /***************************************************************/
 
 import java.util.*;
