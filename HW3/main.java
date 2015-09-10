@@ -19,13 +19,19 @@ public class main{
    /* Returns: Void: Output to the console only                   */
    /***************************************************************/
 	public static void main(String[] args) {
+      
+      if(args.length < 1){ 
+         System.out.println("File location must be specified");
+         return;
+      }
+      
       QuickSort strQckSort = new QuickSort();
-      
       Map<String, ArrayList<String>> wordMap = new HashMap<>();
-      String[] words = readWords("words.txt");
-      
-      String key;
+      ArrayList<String> value;
       List<String> anagrams;
+      String[] anagramsArray;
+      String[] words = readWords(args[0]);
+      String key;
       
       for(int itter = 0; itter < words.length; itter++){
          key = strQckSort.quickSortStr(words[itter].toLowerCase());
@@ -40,19 +46,18 @@ public class main{
       Iterator iterator = wordMap.keySet().iterator();
 
       while (iterator.hasNext()) {
-         String keyVal = iterator.next().toString();
-         ArrayList<String> value = wordMap.get(keyVal);
-         String[] anagramsArray = value.toArray(new String[value.size()]);
+         key = iterator.next().toString();
+         value = wordMap.get(key);
+         anagramsArray = value.toArray(new String[value.size()]);
          
-         if(anagramsArray.length > 1){
-            System.out.println(keyVal + ": " + explodeArrayStr(anagramsArray, ", "));
-         }
+         if(anagramsArray.length > 1)
+            System.out.println(key + ": " + explodeArrayStr(anagramsArray, ", "));
       }
    }
    
    /***************************************************************/
    /* Method: explodeArrayStr                                     */
-   /* Purpose: creats string from all elements in an array        */
+   /* Purpose: creates string from all elements in an array       */
    /* Parameters:                                                 */
    /* String[] inputArr: the array to turn into an array          */
    /* String del: the string to put between each element          */
@@ -62,7 +67,8 @@ public class main{
       String explodeStr = "";
       
       for(int itter = 0; itter < inputArr.length; itter++){
-         if(inputArr[itter] == null){ break; }
+         if(inputArr[itter] == null)
+            break;
          
          explodeStr += inputArr[itter] + del;   
       }  
@@ -78,7 +84,7 @@ public class main{
    /*          them in an array of strings                        */   
    /* Parameters:                                                 */
    /* String fileLocation: the location of the file to read from  */
-   /* Returns: String[]: the array of stirngs                     */
+   /* Returns: String[]: the array of words in given file         */
    /***************************************************************/
    public static String[] readWords(String fileLocation){
       List<String> words = new ArrayList<String>();
@@ -90,12 +96,8 @@ public class main{
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
          
 			String line;
-         ArrayList<String> anagrams;
-         String key;
-      
-			while ((line = bufferedReader.readLine()) != null){
+			while ((line = bufferedReader.readLine()) != null)
             words.add(line);
-			}
          
 			fileReader.close();
 		} catch (IOException e) {

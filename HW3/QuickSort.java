@@ -2,8 +2,9 @@
 /* Timothy Loftis                                              */
 /* Login ID: loft3285                                          */
 /* CS-203, Summer 2015                                         */
-/* Programming Assignment 2                                    */
-/* QuickSort class: This is a merge sort for an integer array  */
+/* Programming Assignment 3                                    */
+/* QuickSort class: This is used to quickSort the content of   */
+/*                  a string alphabetically                    */
 /***************************************************************/
 
 import java.util.*;
@@ -14,10 +15,9 @@ public class QuickSort{
    
    /***************************************************************/
    /* Method: QuickSort                                           */
-   /* Purpose: Sets the array and the array length to be used     */
+   /* Purpose: Just used to initialize the class                  */
    /* Parameters:                                                 */
-   /* int[] intArray: The array to be sorted at some point        */
-   /* Returns: void: just sets the array                          */
+   /* Returns: void:                                              */
    /***************************************************************/
    public QuickSort() {
       
@@ -25,9 +25,9 @@ public class QuickSort{
 
    /***************************************************************/
    /* Method: quickSortStr                                        */
-   /* Purpose: To start the sorting of the array                  */
+   /* Purpose: Sort the chars of a string alphabetically          */
    /* Parameters:                                                 */
-   /* Returns: void: sorts the array lowest to highest            */
+   /* Returns: String: the string but chars sorted                */
    /***************************************************************/
    public String quickSortStr(String word) {
       this.sortArray = word.toCharArray();
