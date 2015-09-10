@@ -1,0 +1,23 @@
+The Time it takes to get the list of words from the file is m, where m = number of words in file
+The Time it takes to sort the contents of each individual word uses quicksort who's average run time is nLog(n) where n = number of elemens to sort
+
+From this we get the time m*n*Log(n).
+
+Now, using some resources from Wolfram alpha we get the average length of English words is 5.1
+Source: http://www.wolframalpha.com/input/?i=average+english+word+length
+
+using this we can replace the value n with 5 bring the time to m*5.1log(5.1) ~ 3.69
+
+The longest word in the English dictionary is 45 characters long, pneumonoultramicroscopicsilicovolcanoconiosis
+Source: http://www.wolframalpha.com/input/?i=longest+english+word&lk=4&num=1
+
+bringing the maximum value for the sort time to 45*Log(45) ~ 74.39
+
+There are near 600,00 words in the English language, so in worse case m = 600000
+Source: http://www.wolframalpha.com/input/?i=how+many+english+words+are+there
+
+Bringing the average word case with the whole of the English dictionary you get 600000*5.1*Log(5.1) ~ 2165164.74
+
+Now, if we want to get very crazy with the run time, the absolute worse case for quicksort is n^2, this would make the new time 600000*5.1^2 = 15,606,000
+
+So, not that bad really.

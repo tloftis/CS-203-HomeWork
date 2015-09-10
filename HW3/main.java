@@ -2,20 +2,21 @@
 /* Timothy Loftis                                              */
 /* Login ID: loft3285                                          */
 /* CS-203, Summer 2015                                         */
-/* Programming Assignment 2                                    */
+/* Programming Assignment 3                                    */
 /* main class: this tests the timing of the diffrent sorting   */
 /*             algs                                            */
 /***************************************************************/
 
-import java.util.*;//used for mostly for Random
+import java.util.*;
 import java.io.*;//used to read files
 
 public class main{
 
    /***************************************************************/
    /* Method: main                                                */
-   /* Purpose: this tests the timing of the diffrent sort methods */
+   /* Purpose: Used to find anagrams in text files of words       */
    /* Parameters:                                                 */
+   /*    args[0]: used to hold the file location                  */
    /* Returns: Void: Output to the console only                   */
    /***************************************************************/
 	public static void main(String[] args) {
@@ -34,8 +35,11 @@ public class main{
       String key;
       
       for(int itter = 0; itter < words.length; itter++){
+         //The key used for the hash table is the string in sorted order
+         //anagrams have the same keys as each other as when they are sorted they match
          key = strQckSort.quickSortStr(words[itter].toLowerCase());
          
+         //When keys match, it puts the word in the list that the key pulls up
          if((anagrams = wordMap.get(key)) != null){
             anagrams.add(words[itter]);
          }else{
@@ -45,6 +49,7 @@ public class main{
       
       Iterator iterator = wordMap.keySet().iterator();
 
+      //This goes through all lists in the has map and prints out the results
       while (iterator.hasNext()) {
          key = iterator.next().toString();
          value = wordMap.get(key);
@@ -70,9 +75,11 @@ public class main{
          if(inputArr[itter] == null)
             break;
          
+         //add deliminator to end of string being made
          explodeStr += inputArr[itter] + del;   
       }  
       
+      //remove last deliminator for sake of looking nice
       explodeStr = explodeStr.substring(0, explodeStr.length()- del.length());;
       
       return explodeStr;
@@ -95,6 +102,7 @@ public class main{
          
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
          
+         //Goes through all line items and adds them to an arrayList
 			String line;
 			while ((line = bufferedReader.readLine()) != null)
             words.add(line);
@@ -104,6 +112,7 @@ public class main{
 			e.printStackTrace();
 		}
       
+      //Takes list array and outputs an array of words
       return words.toArray(new String[words.size()]);
    }
 }
