@@ -16,7 +16,7 @@ public class main{
    /* Method: main                                                */
    /* Purpose: Used to find anagrams in text files of words       */
    /* Parameters:                                                 */
-   /*    args[0]: used to hold the file location                  */
+   /*    args[0]: used to give the file location                  */
    /* Returns: Void: Output to the console only                   */
    /***************************************************************/
 	public static void main(String[] args) {
@@ -64,7 +64,7 @@ public class main{
    /* Method: explodeArrayStr                                     */
    /* Purpose: creates string from all elements in an array       */
    /* Parameters:                                                 */
-   /* String[] inputArr: the array to turn into an array          */
+   /* String[] inputArr: the array to turn into an string         */
    /* String del: the string to put between each element          */
    /* Returns: String: the string produced from the array         */
    /***************************************************************/
